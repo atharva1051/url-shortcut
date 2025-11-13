@@ -1,2 +1,30 @@
-# code to run ruff linter on the codebase
-# fail if any issues are found
+name: Lint
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                python-version: ['3.12']
+
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Set up Python ${{ matrix.python-version }}
+          uses: actions/setup-python@v5
+          with:
+            python-version: ${{ matrix.python-version }}
+
+        - name: Install ruff
+          run: pip install --upgrade ruff
+
+        - name: Run ruff check
+          run: ruff check .
