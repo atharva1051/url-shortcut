@@ -3,7 +3,7 @@ import sqlite3
 import tempfile
 import os
 from fastapi.testclient import TestClient
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 # Import the app from your main file
 # Adjust the import based on your file name
@@ -234,7 +234,6 @@ class TestDatabaseOperations:
         
         with get_db() as conn:
             assert isinstance(conn, sqlite3.Connection)
-            conn_id = id(conn)
         
         # Connection should be closed after exiting context
         # This is implicit in the context manager behavior
